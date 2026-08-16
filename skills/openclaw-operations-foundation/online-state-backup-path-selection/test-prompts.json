@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f09-typical-1",
+    "type": "should_invoke",
+    "prompt": "Gateway 正在运行，状态包含 SQLite WAL。我们想在不停机情况下建立可恢复备份，不能直接复制哪些文件，应该如何选路径？",
+    "expected": "禁止复制 live sqlite/WAL/SHM/journal；按恢复目标选择受支持 archive、snapshot 或连续复制。"
+  },
+  {
+    "id": "f09-typical-2",
+    "type": "should_invoke",
+    "prompt": "团队需要低 RPO 的持续状态保护，同时也需要每周一次完整可迁移恢复点。请比较连续复制与 archive 的组合。",
+    "expected": "按 RPO、完整恢复目标和在线一致性取舍，并要求验证与敏感 state 保护。"
+  },
+  {
+    "id": "f09-boundary",
+    "type": "ambiguous",
+    "prompt": "我只备份 openclaw.json，发生故障时肯定能完整恢复，对吗？",
+    "expected": "指出仅配置不足、备份路径需覆盖完整 state 且具有一致性。"
+  },
+  {
+    "id": "f09-bait",
+    "type": "should_not_invoke",
+    "prompt": "SQLite 的 SELECT 查询怎样按日期排序？",
+    "expected": "不应调用在线备份决策技能。"
+  },
+  {
+    "id": "f09-handoff",
+    "type": "should_invoke_other",
+    "prompt": "我们已经有一份 archive，下一步是检查它并决定何时切换到生产状态目录。",
+    "expected": "交接 candidate-validation-before-activation（f08）。"
+  }
+]

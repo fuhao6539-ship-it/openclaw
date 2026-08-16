@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f02-typical-1",
+    "type": "should_invoke",
+    "prompt": "我要为 Gateway 新增 Slack 渠道，同时把 bind 改为 LAN、接入反向代理，并允许一个 exec 工具。请给出不会混淆故障来源的上线顺序。",
+    "expected": "拆分为单控制变量序列；每步含快照、授权/拒绝、路由、脱敏与高影响工具检查。"
+  },
+  {
+    "id": "f02-typical-2",
+    "type": "should_invoke",
+    "prompt": "我们已添加精确 DM allowlist，下一步想开启群组消息和写工具。怎样决定是否继续？",
+    "expected": "要求先验证当前变更的可解释证据；未理解影响时停止或回滚。"
+  },
+  {
+    "id": "f02-boundary",
+    "type": "ambiguous",
+    "prompt": "Gateway 正在疑似遭受未授权访问，我能否先逐步开放一个只读 exec 工具来调查？",
+    "expected": "指出正在发生的安全事件优先恢复已知安全状态，不以逐步放宽作为事件处置。"
+  },
+  {
+    "id": "f02-bait",
+    "type": "should_not_invoke",
+    "prompt": "帮我给这次版本发布写一段面向客户的公告。",
+    "expected": "不应调用变更控制面技能。"
+  },
+  {
+    "id": "f02-handoff",
+    "type": "should_invoke_other",
+    "prompt": "我们还没决定远程 SRE 应该通过 SSH tunnel、Tailscale Serve 还是反向代理进入 Control UI。",
+    "expected": "交接 minimal-exposure-selection（f01），因为先决问题是暴露模式选择。"
+  }
+]

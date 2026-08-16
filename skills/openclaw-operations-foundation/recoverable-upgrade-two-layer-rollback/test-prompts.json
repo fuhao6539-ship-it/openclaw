@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f07-typical-1",
+    "type": "should_invoke",
+    "prompt": "升级后 Gateway 无法读取配置。我们有升级前备份，也有当前失败状态。应先回退包版本还是立刻恢复旧 state？",
+    "expected": "优先代码回退并保留 current state；仅在旧代码无法读取迁移后状态时保存当前状态后恢复 state。"
+  },
+  {
+    "id": "f07-typical-2",
+    "type": "should_invoke",
+    "prompt": "数据库迁移后新版本崩溃，但没有证据表明数据格式不兼容。请设计可审计回退。",
+    "expected": "建立恢复点与健康证据，先尝试 known-good code rollback，不把 state 恢复当默认操作。"
+  },
+  {
+    "id": "f07-boundary",
+    "type": "ambiguous",
+    "prompt": "生产数据已被手工删除且没有任何可验证备份。请直接执行破坏性修复。",
+    "expected": "说明无备份不能承诺恢复，声明恢复能力缺口。"
+  },
+  {
+    "id": "f07-bait",
+    "type": "should_not_invoke",
+    "prompt": "比较语义化版本号 1.2.3 与 2.0.0 的一般含义。",
+    "expected": "不应调用升级回退技能。"
+  },
+  {
+    "id": "f07-handoff",
+    "type": "should_invoke_other",
+    "prompt": "升级前我想先决定对一个仍在线的 SQLite 和完整 state 应采用 archive、snapshot 还是连续复制。",
+    "expected": "交接 online-state-backup-path-selection（f09）。"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f08-typical-1",
+    "type": "should_invoke",
+    "prompt": "收到一份 Gateway archive，需要恢复到生产。请设计不会覆盖 live state 的验证和激活流程。",
+    "expected": "先 staging 提取并验证 manifest、数据库、路径、凭据/渠道状态；停止 Gateway 后由操作员显式切换。"
+  },
+  {
+    "id": "f08-typical-2",
+    "type": "should_invoke",
+    "prompt": "恢复候选数据库通过 SQLite integrity check，但其中的渠道凭据可能已失效。现在能直接替换状态目录吗？",
+    "expected": "要求记录差异并验证外部状态；不直接覆盖，保留明确激活闸门。"
+  },
+  {
+    "id": "f08-boundary",
+    "type": "ambiguous",
+    "prompt": "为了缩短停机时间，能否在 Gateway 运行时把 archive 解压到 live state 目录？",
+    "expected": "拒绝原地覆盖运行状态，说明 staging 与停止后显式激活。"
+  },
+  {
+    "id": "f08-bait",
+    "type": "should_not_invoke",
+    "prompt": "tar.gz 和 zip 在压缩比上通常有什么差异？",
+    "expected": "不应调用恢复激活技能。"
+  },
+  {
+    "id": "f08-handoff",
+    "type": "should_invoke_other",
+    "prompt": "当前问题不是恢复 archive，而是升级失败后需要判断只回退代码还是同时回退迁移后的 state。",
+    "expected": "交接 recoverable-upgrade-two-layer-rollback（f07）。"
+  }
+]

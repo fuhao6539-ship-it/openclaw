@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f05-typical-1",
+    "type": "should_invoke",
+    "prompt": "浏览器工具已在 allowlist 中，但仍无法读取宿主上的诊断文件。请判断应检查 sandbox、tool policy 还是 elevated，并给出最小变更路径。",
+    "expected": "区分可调用性、运行位置、宿主 exec gate；先收集生效配置，避免扩大其他权限。"
+  },
+  {
+    "id": "f05-typical-2",
+    "type": "should_invoke",
+    "prompt": "有人建议“打开 elevated 就能解决所有工具失败”。请用三层模型评估这个建议。",
+    "expected": "说明 elevated 不增加其他工具可用性且应非默认绕过；给出按层诊断。"
+  },
+  {
+    "id": "f05-boundary",
+    "type": "ambiguous",
+    "prompt": "我们已启用 sandbox，所以不同客户的 Gateway 一定安全隔离，对吗？",
+    "expected": "指出 sandbox 不是对抗性多租户边界，交接 trust-boundary-segmentation。"
+  },
+  {
+    "id": "f05-bait",
+    "type": "should_not_invoke",
+    "prompt": "如何在 Python 中用 subprocess 捕获标准错误？",
+    "expected": "不应调用 Gateway 工具控制技能。"
+  },
+  {
+    "id": "f05-handoff",
+    "type": "should_invoke_other",
+    "prompt": "我们还未确定谁能通过新 webhook 触发 bot，以及触发后应允许哪些资源和工具。",
+    "expected": "交接 identity-first-scope-second-model-last（f03）。"
+  }
+]

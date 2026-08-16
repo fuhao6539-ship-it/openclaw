@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f06-typical-1",
+    "type": "should_invoke",
+    "prompt": "我们修改了 Gateway 远程暴露配置。普通 security audit 已通过，是否足以宣称运行时安全？",
+    "expected": "区分冷路径与深度审计；说明深度探测/插件扫描和实际授权拒绝测试的证据边界。"
+  },
+  {
+    "id": "f06-typical-2",
+    "type": "should_invoke",
+    "prompt": "合规团队要求说明本次审计结论来自静态配置检查还是 live Gateway probe，且 probe 被网络策略阻断。怎么记录？",
+    "expected": "记录命令范围、checkId、探测受阻；不将缺失探测视为通过。"
+  },
+  {
+    "id": "f06-boundary",
+    "type": "ambiguous",
+    "prompt": "deep audit 报出 critical finding。能否让这个技能自动把配置改掉？",
+    "expected": "说明该技能不自动修复，需按 finding 主路径处理。"
+  },
+  {
+    "id": "f06-bait",
+    "type": "should_not_invoke",
+    "prompt": "帮我解释审计报告中的“严重性”一词在中文里如何表述。",
+    "expected": "不应调用审计证据技能。"
+  },
+  {
+    "id": "f06-handoff",
+    "type": "should_invoke_other",
+    "prompt": "我们要把 bind、代理和渠道策略一次上线，但希望每一步都有证据再继续。",
+    "expected": "交接 single-control-widen（f02）。"
+  }
+]

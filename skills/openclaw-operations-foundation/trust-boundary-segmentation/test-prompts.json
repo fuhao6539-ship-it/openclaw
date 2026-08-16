@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f04-typical-1",
+    "type": "should_invoke",
+    "prompt": "我们打算让三个客户通过不同渠道账号使用同一 Gateway 和同一组凭据，只靠 sessionKey 分流。请判断是否可以视为隔离。",
+    "expected": "判定 sessionKey 仅路由、不是授权；评估是否共享同一受信操作员边界并提出 Gateway/凭据/宿主拆分。"
+  },
+  {
+    "id": "f04-typical-2",
+    "type": "should_invoke",
+    "prompt": "同一公司内的两个团队互相不信任，但想共享一个 agent 的高权限工具。需要拆分到什么层级？",
+    "expected": "识别委托权力共享风险，按风险讨论 Gateway、凭据、OS 用户或主机拆分及交叉访问验证。"
+  },
+  {
+    "id": "f04-boundary",
+    "type": "ambiguous",
+    "prompt": "只有一名受信管理员、一个 Gateway；他只是想按渠道把自己的会话路由到不同 agent。是否必须新建主机？",
+    "expected": "说明纯同一受信边界的路由通常不需此技能或不必主机拆分。"
+  },
+  {
+    "id": "f04-bait",
+    "type": "should_not_invoke",
+    "prompt": "为“多租户”这个词写一个中英文术语表定义。",
+    "expected": "不应调用隔离决策技能。"
+  },
+  {
+    "id": "f04-handoff",
+    "type": "should_invoke_other",
+    "prompt": "所有用户都属于同一受信运维团队。现在要设计 webhook 的认证、资源范围和提示注入缓解顺序。",
+    "expected": "交接 identity-first-scope-second-model-last（f03）。"
+  }
+]

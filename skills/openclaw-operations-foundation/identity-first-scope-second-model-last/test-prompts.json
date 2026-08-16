@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f03-typical-1",
+    "type": "should_invoke",
+    "prompt": "第三方 webhook 可能带提示注入，但业务想让它触发内部 agent。请按优先级设计防护，而不是只给一段提示词。",
+    "expected": "先设计触发者身份认证，再收缩会话/资源/工具范围，最后才讨论模型和提示词补强。"
+  },
+  {
+    "id": "f03-typical-2",
+    "type": "should_invoke",
+    "prompt": "产品要求把 DM policy 设为 open，同时声称系统提示词会阻止危险操作。应如何评估？",
+    "expected": "说明提示词不能替代身份和最小权限；要求明确身份入口及范围控制。"
+  },
+  {
+    "id": "f03-boundary",
+    "type": "ambiguous",
+    "prompt": "两个相互竞争的部门都已通过同一个 Gateway token 认证。给他们不同的 tool policy 就能形成安全租户隔离吗？",
+    "expected": "指出问题涉及信任边界，交接 trust-boundary-segmentation。"
+  },
+  {
+    "id": "f03-bait",
+    "type": "should_not_invoke",
+    "prompt": "解释一下 OAuth 与 API token 的概念区别。",
+    "expected": "不应调用此防护优先级技能。"
+  },
+  {
+    "id": "f03-handoff",
+    "type": "should_invoke_other",
+    "prompt": "某 agent 的 shell 工具已经被允许，但我需要弄清它为什么仍在沙箱里运行，以及能否仅允许一次宿主 exec。",
+    "expected": "交接 tool-execution-three-layer-control（f05）。"
+  }
+]

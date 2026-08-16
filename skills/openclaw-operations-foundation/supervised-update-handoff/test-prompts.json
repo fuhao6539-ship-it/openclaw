@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f10-typical-1",
+    "type": "should_invoke",
+    "prompt": "运行中的受管 Gateway 提示可更新。我能否通过它自己的控制面直接运行包管理器更新？请给出安全交接流程。",
+    "expected": "避免进程内替换加载中的包树；确认安装/监督方式，使用进程外交接，重启并验证版本、Doctor、health。"
+  },
+  {
+    "id": "f10-typical-2",
+    "type": "should_invoke",
+    "prompt": "我们必须手动替换受管安装的包。服务应何时停止、何时刷新元数据、如何定义完成？",
+    "expected": "先停止 managed Gateway，替换并刷新服务元数据，重启后以运行版本和健康验证定义完成。"
+  },
+  {
+    "id": "f10-boundary",
+    "type": "ambiguous",
+    "prompt": "这是一个不受监督的一次性本地开发实验，是否必须套用受管 Gateway 的服务交接流程？",
+    "expected": "说明本技能不用于不受监督的开发试验。"
+  },
+  {
+    "id": "f10-bait",
+    "type": "should_not_invoke",
+    "prompt": "请列出 npm install 与 npm update 的常见区别。",
+    "expected": "不应调用受管更新交接技能。"
+  },
+  {
+    "id": "f10-handoff",
+    "type": "should_invoke_other",
+    "prompt": "受管更新已完成但新版本启动失败；需要决定先回退包还是恢复升级前 state。",
+    "expected": "交接 recoverable-upgrade-two-layer-rollback（f07）。"
+  }
+]

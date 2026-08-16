@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f01-typical-1",
+    "type": "should_invoke",
+    "prompt": "我们的 Gateway 目前只在本机运维。三名异地 SRE 需要访问 Control UI，但不希望开放公网端口。请比较可选访问模式并选出攻击面最小的方案。",
+    "expected": "从 loopback 起比较 SSH tunnel、Tailscale Serve 等方案；说明选择前提、附加控制、授权/拒绝验证与回滚条件。"
+  },
+  {
+    "id": "f01-typical-2",
+    "type": "should_invoke",
+    "prompt": "合作方要求从公网访问一个 Gateway API。如何判断是否必须接受公网暴露，以及最低限度要补哪些网络和身份控制？",
+    "expected": "先核实业务必要性；说明公网是高风险末选项、需要独立威胁建模与身份感知网络路径。"
+  },
+  {
+    "id": "f01-boundary",
+    "type": "ambiguous",
+    "prompt": "我们两个客户共用同一个 Gateway，只用不同 sessionKey 分隔。现在想让其中一方远程访问；选 SSH tunnel 能解决隔离问题吗？",
+    "expected": "指出暴露模式不能证明多租户隔离；交接 trust-boundary-segmentation，并说明可先讨论最小访问面。"
+  },
+  {
+    "id": "f01-bait",
+    "type": "should_not_invoke",
+    "prompt": "请把这份值班交接说明压缩成五个项目符号。",
+    "expected": "不应调用运维暴露面决策技能。"
+  },
+  {
+    "id": "f01-handoff",
+    "type": "should_invoke_other",
+    "prompt": "已决定使用受信反向代理。请把 allowlist、代理、bind 和 exec 权限设计成每次只改一个控制面并逐步验证。",
+    "expected": "交接 single-control-widen（f02），因为主问题是变更序列而非暴露模式选择。"
+  }
+]
